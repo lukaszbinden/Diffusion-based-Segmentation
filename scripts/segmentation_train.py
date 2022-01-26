@@ -8,6 +8,7 @@ sys.path.append(".")
 from guided_diffusion import dist_util, logger
 from guided_diffusion.resample import create_named_schedule_sampler
 from guided_diffusion.bratsloader import BRATSDataset
+from guided_diffusion.cityscapesloader import training_dataset
 from guided_diffusion.script_util import (
     model_and_diffusion_defaults,
     create_model_and_diffusion,
@@ -15,6 +16,7 @@ from guided_diffusion.script_util import (
     add_dict_to_argparser,
 )
 import torch as th
+
 from guided_diffusion.train_util import TrainLoop
 from visdom import Visdom
 viz = Visdom(port=8850)
@@ -33,13 +35,13 @@ def main():
     schedule_sampler = create_named_schedule_sampler(args.schedule_sampler, diffusion,  maxt=1000)
 
     logger.log("creating data loader...")
-    ds = BRATSDataset(args.data_dir, test_flag=False)
+    # ds = BRATSDataset(args.data_dir, test_flag=False)
+    ds = training_dataset()
     datal= th.utils.data.DataLoader(
         ds,
         batch_size=args.batch_size,
         shuffle=True)
     data = iter(datal)
-
 
     logger.log("training...")
     TrainLoop(

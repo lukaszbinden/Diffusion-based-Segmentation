@@ -7,7 +7,7 @@ Pillow==8.2.0
 scikit-learn==0.24.2
 matplotlib==3.3.1
 setproctitle==1.1.10
-SimpleITK==2.0.1
+SimpleITK==2.0.2
 albumentations==0.5.1
 einops==0.3
 pandas==1.2.2

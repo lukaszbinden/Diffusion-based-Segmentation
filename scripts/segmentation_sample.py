@@ -17,6 +17,7 @@ import torch as th
 import torch.distributed as dist
 from guided_diffusion import dist_util, logger
 from guided_diffusion.bratsloader import BRATSDataset
+from guided_diffusion.cityscapesloader import validation_dataset
 from guided_diffusion.script_util import (
     NUM_CLASSES,
     model_and_diffusion_defaults,
@@ -51,7 +52,8 @@ def main():
         **args_to_dict(args, model_and_diffusion_defaults().keys())
     )
 
-    ds = BRATSDataset(args.data_dir, test_flag=True)
+    # ds = BRATSDataset(args.data_dir, test_flag=True)
+    ds = validation_dataset()
     datal = th.utils.data.DataLoader(
         ds,
         batch_size=1,
